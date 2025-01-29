@@ -12,8 +12,8 @@ data "aws_ami" "os_image" {    #We're using data just to get the recent OS AMI I
 }
 
 resource "aws_key_pair" "deployer" {
-  key_name   = "bankapp-automate-key"
-  public_key = file("bankapp-automate-key.pub")
+  key_name   = "bankapp-key"
+  public_key = file("bankapp-key.pub")
 }
 
 resource "aws_default_vpc" "default" {
@@ -67,10 +67,10 @@ resource "aws_instance" "testinstance" {
   key_name        = aws_key_pair.deployer.key_name
   security_groups = [aws_security_group.allow_user_to_connect.name]
   tags = {
-    Name = "DevSecOps-Automation-Server"
+    Name = "DevSecOps-Server"
   }
   root_block_device {
-    volume_size = 30 
+    volume_size = 25 
     volume_type = "gp3"
   }
 }
